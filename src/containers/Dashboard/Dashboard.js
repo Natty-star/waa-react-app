@@ -1,18 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PostDetails from "../../components/PostDetails/PostDetails";
 import Posts from "../Posts/Posts";
+import axios from "axios";
 
 import "materialize-css/dist/css/materialize.min.css";
 
 const Dashboard = () => {
+  const [newTitle, setNewTitle] = useState("");
+  const [activePostDetail, setActivePost] = useState("");
+  // const [selected, setSelected] = useState(false);
+
   const [posts, setPosts] = useState([
     { id: 1, title: "news", content: "my new post", author: "Natty" },
     { id: 2, title: "Sport", content: "sport news", author: "Mera" },
     { id: 3, title: "story", content: "music", author: "Star" },
   ]);
 
-  const [newTitle, setNewTitle] = useState("");
-  const [activePostDetail, setActivePost] = useState("");
+  const fetchPosts = () => {
+    axios
+      .get("http://localhost:8080/api/v1/posts")
+      .then((resopnse) => {
+        setPosts(resopnse.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   const changeTitle = () => {
     const postsCopy = [...posts];
@@ -24,8 +41,7 @@ const Dashboard = () => {
   };
 
   const activePostHadler = (post) => {
-    setActivePost(post);
-    console.log(post);
+    setActivePost(post.id);
   };
 
   return (

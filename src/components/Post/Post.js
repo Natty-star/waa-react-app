@@ -1,6 +1,5 @@
 import "./Post.css";
 const Post = (props) => {
-  console.log(props);
   return (
     <div className="post" key={props.id} onClick={props.activePost}>
       <div className="col s12 m5">
