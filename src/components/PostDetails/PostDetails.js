@@ -17,20 +17,22 @@ const PostDetails = (props) => {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/api/v1/posts/" + props.activePost)
-      .then((response) => {
-        setPost(response.data);
-        console.log(post);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    if (props.activePost) {
+      axios
+        .get("http://localhost:8080/api/v1/posts/" + props.activePost)
+        .then((response) => {
+          setPost(response.data);
+          console.log(post);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
   }, [props.activePost]);
   return (
     <div>
       {post != null && (
-        <div className="post card">
+        <div className="post card ">
           <div>
             <span className="card-title">Post Detail Information</span>
           </div>

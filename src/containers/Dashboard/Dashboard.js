@@ -4,6 +4,7 @@ import Posts from "../Posts/Posts";
 import axios from "axios";
 
 import "materialize-css/dist/css/materialize.min.css";
+import AddPost from "../../components/AddPost/AddPost";
 
 const Dashboard = () => {
   const [newTitle, setNewTitle] = useState("");
@@ -45,18 +46,23 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
+    <>
+      <div className="center">
+        <h2>Posts</h2>
+      </div>
+
       <Posts posts={posts} activePost={activePostHadler} />
-      <div>
+      {/* <div>
         <input id="title" type="text" onChange={onChangeTitle}></input>
       </div>
       <div>
         <button onClick={changeTitle} type="button">
           Change Title
         </button>
-      </div>
+      </div> */}
+      <AddPost />
       <PostDetails activePost={activePostDetail} />
-    </div>
+    </>
   );
 };
 
