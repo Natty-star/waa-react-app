@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRef } from "react";
 
-const AddPost = () => {
+const AddPost = (props) => {
   const newPostForm = useRef();
 
   const addPostHandler = () => {
@@ -16,6 +16,7 @@ const AddPost = () => {
       .post("http://localhost:8080/api/v1/posts", data)
       .then((response) => {
         console.log(response);
+        props.updatePosts(data);
       })
       .catch((err) => {
         console.log(err);

@@ -45,6 +45,17 @@ const Dashboard = () => {
     setActivePost(post.id);
   };
 
+  const updatePosts = (data) => {
+    const copyposts = [...posts, data];
+    setPosts(copyposts);
+    console.log(copyposts);
+  };
+
+  const handleDeletePost = (id) => {
+    const deletePost = posts.filter((post) => post.id != id);
+    setPosts(deletePost);
+  };
+
   return (
     <>
       <div className="center">
@@ -60,8 +71,11 @@ const Dashboard = () => {
           Change Title
         </button>
       </div> */}
-      <AddPost />
-      <PostDetails activePost={activePostDetail} />
+      <AddPost updatePosts={updatePosts} />
+      <PostDetails
+        deletePost={handleDeletePost}
+        activePost={activePostDetail}
+      />
     </>
   );
 };

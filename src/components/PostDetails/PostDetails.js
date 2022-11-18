@@ -1,15 +1,17 @@
 import "./PostDetails.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
+
 const PostDetails = (props) => {
   const [post, setPost] = useState({});
 
   const deleteHandler = (id) => {
-    console.log(id);
     axios
       .delete("http://localhost:8080/api/v1/posts/" + id)
       .then((response) => {
         console.log(response);
+        // update dashbaord posts list
+        props.deletePost(id);
       })
       .catch((error) => {
         console.log(error.message);
@@ -22,7 +24,6 @@ const PostDetails = (props) => {
         .get("http://localhost:8080/api/v1/posts/" + props.activePost)
         .then((response) => {
           setPost(response.data);
-          console.log(post);
         })
         .catch((error) => {
           console.log(error.message);
