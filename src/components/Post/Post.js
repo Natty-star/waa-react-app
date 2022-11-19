@@ -1,7 +1,17 @@
+import { useContext } from "react";
+import { SelectedPost } from "../../context/contextTest";
 import "./Post.css";
 const Post = (props) => {
+  const { selected, setSelected } = useContext(SelectedPost);
+
+  console.log(props.id);
+
   return (
-    <div className="post" key={props.id} onClick={props.activePost}>
+    <div
+      className="post"
+      key={props.id}
+      onClick={() => setSelected(props.title)}
+    >
       <div className="col s12 m5">
         <div className="card-panel  ">
           <div>

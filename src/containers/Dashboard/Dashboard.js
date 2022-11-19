@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PostDetails from "../../components/PostDetails/PostDetails";
 import Posts from "../Posts/Posts";
 import axios from "axios";
 
 import "materialize-css/dist/css/materialize.min.css";
 import AddPost from "../../components/AddPost/AddPost";
+import { SelectedPost } from "../../context/contextTest";
 
 const Dashboard = () => {
   const [newTitle, setNewTitle] = useState("");
   const [activePostDetail, setActivePost] = useState("");
-  // const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState("1");
+  console.log(selected);
 
   const [posts, setPosts] = useState([
     { id: 1, title: "news", content: "my new post", author: "Natty" },
@@ -57,26 +59,21 @@ const Dashboard = () => {
   };
 
   return (
-    <>
-      <div className="center">
-        <h2>Posts</h2>
-      </div>
+    <SelectedPost.Provider value={{ selected, setSelected }}>
+      <>
+        <div className="center">
+          <h2>Posts</h2>
+        </div>
 
-      <Posts posts={posts} activePost={activePostHadler} />
-      {/* <div>
-        <input id="title" type="text" onChange={onChangeTitle}></input>
-      </div>
-      <div>
-        <button onClick={changeTitle} type="button">
-          Change Title
-        </button>
-      </div> */}
-      <AddPost updatePosts={updatePosts} />
-      <PostDetails
-        deletePost={handleDeletePost}
-        activePost={activePostDetail}
-      />
-    </>
+        <Posts posts={posts} activePost={activePostHadler} />
+
+        <AddPost updatePosts={updatePosts} />
+        <PostDetails
+          deletePost={handleDeletePost}
+          activePost={activePostDetail}
+        />
+      </>
+    </SelectedPost.Provider>
   );
 };
 
